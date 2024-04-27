@@ -1,0 +1,19 @@
+type Error = variant { NotFound : record { msg : text } };
+type Message = record {
+  id : nat64;
+  updated_at : opt nat64;
+  harga : nat64;
+  jenis : text;
+  created_at : nat64;
+};
+type MessagePayload = record { harga : nat64; jenis : text };
+type Result = variant { Ok : Message; Err : Error };
+service : {
+  addPesanan : (MessagePayload) -> (opt Message);
+  deletePesanan : (nat64) -> (Result);
+  getAvgTotalHarga : () -> (opt float64) query;
+  getTotalHargaPesanan : () -> (nat64) query;
+  get_message : (nat64) -> (Result) query;
+  greet : (text) -> (text) query;
+  updatePesanan : (nat64, MessagePayload) -> (Result);
+}
